@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('acoes', function (Blueprint $table) {
-            $table->id('acoes_id');
-            $table->string('acoes_titulo');
-            $table->string('acoes_descricao');
-            $table->timestamps();
+        Schema::table('leads', function (Blueprint $table) {
+           $table->unsignedBigInteger('leads_acoes_id');
+           $table->foreign('leads_acoes_id')->references('acoes_id')->on('acoes');
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('acoes');
+        //
     }
 };

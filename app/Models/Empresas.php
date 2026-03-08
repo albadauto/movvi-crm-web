@@ -10,6 +10,7 @@ class Empresas extends Model
     public $timestamps = true;
     protected $primaryKey = "empresas_id";
     protected $fillable = [
+        'empresas_id',
         'empresas_nome',
         'empresas_cnpj',
         'empresas_telefone',

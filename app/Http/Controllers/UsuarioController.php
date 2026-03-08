@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AtualizacaoSenhaRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginRequest;
+use App\Services\EmpresasService;
 use App\Services\EsqueciSenhaService;
 use App\Services\HistoricoService;
 use App\Services\UsuarioService;
@@ -14,11 +15,16 @@ class UsuarioController extends Controller
     private UsuarioService $usuarioService;
     private HistoricoService $historicoService;
     private EsqueciSenhaService $esqueciSenhaService;
-    public function __construct(UsuarioService $usuarioService, HistoricoService $historicoService, EsqueciSenhaService $esqueciSenhaService)
+    private EmpresasService $empresasService;
+    public function __construct(UsuarioService $usuarioService,
+                                HistoricoService $historicoService,
+                                EsqueciSenhaService $esqueciSenhaService,
+                                EmpresasService $empresasService)
     {
         $this->usuarioService = $usuarioService;
         $this->historicoService = $historicoService;
         $this->esqueciSenhaService = $esqueciSenhaService;
+        $this->empresasService = $empresasService;
     }
 
     public function login(LoginRequest $request){
@@ -27,8 +33,14 @@ class UsuarioController extends Controller
             $usuario = $request->user();
             $usuarioPremium = $this->historicoService->usuarioPremium($usuario->id);
             if($usuarioPremium){
-                return redirect()->route('dashboard');
+                $usuarioEmpresa = $this->empresasService->buscarEmpresaUsuario($usuario->id);
+                if($usuarioEmpresa){
+                    return redirect()->route('dashboard');
+                }else{
+                    return redirect()->route('empresas');
+                }
             }
+
             return redirect()->route('usuario.registro.planos');
         }else{
             return redirect()->route('login')->with('erro_login', 'Login ou senha incorreto(s)');

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\LoginRequest;
+use App\Models\Empresas;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,10 @@ class UsuarioService
         ];
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $empresa = Empresas::where('empresas_user_id', Auth::id())->first();
+            if(!is_null($empresa)){
+                session()->put('empresa_id', $empresa->empresas_id);
+            }
             return true;
         }
         return false;
