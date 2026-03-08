@@ -45,6 +45,9 @@ Route::prefix('/leads')->middleware('auth')->group(function () {
     Route::get('/cadastro', [LeadsController::class, 'cadastro'])->name('leads.cadastro');
     Route::post('/cadastrar', [LeadsController::class, 'cadastrarLead'])->name('leads.cadastrarlead');
     Route::post('/mover', [LeadsController::class, 'mover'])->name('leads.mover');
+    Route::get('/editar/{id}', [LeadsController::class, 'editar'])->name('leads.editar');
+    Route::get('/deletar/{id}', [LeadsController::class, 'deletarLead'])->name('leads.deletar');
+    Route::post('/atualizar/{id}', [LeadsController::class, 'atualizarLead'])->name('leads.atualizar');
 });
 
 Route::get('/clear', function () {

@@ -42,4 +42,19 @@ class LeadsController extends Controller
         ]);
     }
 
+    public function editar($id){
+        $lead = $this->service->buscaLead($id);
+        return view('leads/editar', ['lead' => $lead]);
+    }
+
+    public function deletarLead($id){
+        $this->service->deletarLead($id);
+        return redirect()->route('leads');
+    }
+
+    public function atualizarLead($id, LeadsRequest $request){
+        $this->service->atualizarLeads($id, $request);
+        return redirect()->route('leads');
+    }
+
 }

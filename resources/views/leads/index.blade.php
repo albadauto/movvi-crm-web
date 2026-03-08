@@ -22,8 +22,7 @@
 
             @foreach($acoes as $acao)
 
-                <div class="w-80 bg-white rounded-xl shadow-md flex-shrink-0"
-                     onclick="window.location.href = '{{ route('login') }}'">
+                <div class="w-80 bg-white rounded-xl shadow-md flex-shrink-0">
                     <!-- Header da coluna -->
                     <div class="flex justify-between items-center p-4 border-b">
                         <h2 class="font-semibold text-gray-700">
@@ -41,7 +40,7 @@
 
                             <div
                                 class="card bg-white border-l-4 border-blue-500 p-4 rounded-lg shadow-sm hover:shadow-md cursor-move transition"
-                                data-id="{{ $lead->leads_id }}">
+                                data-id="{{ $lead->leads_id }}" onclick="window.location.href = '{{ route('leads.editar', ['id' => $lead->leads_id]) }}'">
 
                                 <h3 class="font-semibold text-gray-800">
                                     {{ $lead->leads_nome }}
@@ -58,7 +57,6 @@
                     </div>
 
                 </div>
-
             @endforeach
 
         </div>
