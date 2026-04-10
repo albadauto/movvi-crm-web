@@ -9,6 +9,7 @@ use App\Services\EmpresasService;
 use App\Services\EsqueciSenhaService;
 use App\Services\HistoricoService;
 use App\Services\UsuarioService;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
@@ -52,7 +53,14 @@ class UsuarioController extends Controller
     }
 
     public function planos(){
+        if(!is_null($this->historicoService->usuarioPremium(Auth::id()))){
+            return redirect()->route('empresas');
+        }
         return view('registro/planos');
+    }
+
+    public function confirmacao(){
+        return view('registro/confirmacao');
     }
 
     public function criarUsuario(CreateUserRequest $request){

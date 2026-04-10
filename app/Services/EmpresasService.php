@@ -21,6 +21,7 @@ class EmpresasService
                 'empresas_telefone' => $request->empresas_telefone,
                 'empresas_cnpj' => $request->empresas_cnpj,
                 'empresas_estado' => $request->empresas_estado,
+                'empresas_email' => $request->empresas_email,
                 'empresas_cidade' => $request->empresas_cidade,
                 'empresas_user_id' => Auth::id(),
             ]);

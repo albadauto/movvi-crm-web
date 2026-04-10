@@ -69,6 +69,77 @@
                 </div>
 
 
+                <!-- Próxima ação -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Próxima ação
+                    </label>
+
+                    <select
+                        name="leads_prox_acao"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+                        <option value="">Selecione uma ação</option>
+
+                        <option value="ligar"
+                            {{ $lead->leads_prox_acao == 'ligar' ? 'selected' : '' }}>
+                            📞 Ligar
+                        </option>
+
+                        <option value="whatsapp"
+                            {{ $lead->leads_prox_acao == 'whatsapp' ? 'selected' : '' }}>
+                            💬 Enviar WhatsApp
+                        </option>
+
+                        <option value="visita"
+                            {{ $lead->leads_prox_acao == 'visita' ? 'selected' : '' }}>
+                            🏢 Marcar visita
+                        </option>
+
+                        <option value="proposta"
+                            {{ $lead->leads_prox_acao == 'proposta' ? 'selected' : '' }}>
+                            📄 Enviar proposta
+                        </option>
+
+                        <option value="aguardar"
+                            {{ $lead->leads_prox_acao == 'aguardar' ? 'selected' : '' }}>
+                            ⏳ Aguardar proposta
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <!-- Data e hora da próxima ação -->
+                <div class="grid grid-cols-2 gap-4">
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Data da ação
+                        </label>
+
+                        <input
+                            type="date"
+                            name="leads_prox_acao_data"
+                            value="{{ $lead->leads_prox_acao_data }}"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            Hora
+                        </label>
+
+                        <input
+                            type="time"
+                            name="leads_prox_acao_hora"
+                            value="{{ $lead->leads_prox_acao_hora }}"
+                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    </div>
+
+                </div>
+
+
                 <div class="flex flex-col justify-center items-center gap-3 pt-4">
 
                     <button type="submit"
@@ -87,6 +158,7 @@
                     </a>
 
                 </div>
+
 
             </form>
 

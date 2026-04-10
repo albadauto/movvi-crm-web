@@ -5,7 +5,10 @@ namespace App\Services;
 use App\Http\Requests\LeadsRequest;
 use App\Models\Acoes;
 use App\Models\Leads;
+use App\Models\PremiumUsers;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LeadsService
 {
@@ -31,8 +34,36 @@ class LeadsService
         return Leads::where('leads_id', '=', $id)->first();
     }
 
+    public function atualizarCard(Request $request){
+        $lead = Leads::where('leads_id', $request->leadId)->first();
+        if($lead){
+            $lead->leads_acoes_id = $request->acaoId;
+            $lead->leads_prox_acao = null;
+            $lead->leads_prox_acao_data = null;
+            $lead->leads_prox_acao_hora = null;
+            $lead->save();
+
+        }
+    }
+
     public function deletarLead($id){
         return Leads::destroy($id);
+    }
+
+    public function buscaLimiteLeads(){
+        $premiumUser = PremiumUsers::where('premium_users_user_id', Auth::id())->first();
+        if(!is_null($premiumUser)){
+            if($premiumUser->premium_users_plan_id == 1)
+                return 10;
+            if($premiumUser->premium_users_plan_id == 2)
+                return 100;
+            if($premiumUser->premium_users_plan_id == 3)
+                return 0;
+        }
+    }
+
+    public function buscaLeadsByIdEmpresa($idEmpresa){
+        return Leads::where('leads_empresa_id', $idEmpresa)->get();
     }
 
     public function atualizarLeads($id, LeadsRequest $request){
@@ -41,6 +72,9 @@ class LeadsService
         $lead->leads_email = $request->leads_email;
         $lead->leads_whatsapp = $request->leads_whatsapp;
         $lead->leads_cpf = $request->leads_cpf;
+        $lead->leads_prox_acao = $request->leads_prox_acao;
+        $lead->leads_prox_acao_data = $request->leads_prox_acao_data;
+        $lead->leads_prox_acao_hora = $request->leads_prox_acao_hora;
         return $lead->save();
     }
 

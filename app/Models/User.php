@@ -28,6 +28,9 @@ class User extends Authenticatable
     public function premiumUsers(){
         return $this->hasOne(PremiumUsers::class);
     }
+    public function empresas(){
+        return $this->hasOne(Empresas::class, 'empresas_user_id');
+    }
 
     public function purchaseHistory(){
         return $this->hasMany(PurchaseHistory::class);

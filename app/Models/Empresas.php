@@ -20,4 +20,8 @@ class Empresas extends Model
         'empresas_logo',
         'empresas_user_id'
     ];
+
+    public function users(){
+        return $this->belongsTo(User::class, 'empresas_user_id');
+    }
 }

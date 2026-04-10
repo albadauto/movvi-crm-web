@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\EsqueciSenhaController;
 use App\Http\Controllers\LeadsController;
+use App\Http\Controllers\MeuPerfilController;
 use App\Http\Controllers\PagamentoController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\LoginController;
@@ -16,6 +17,7 @@ Route::prefix('usuario')->group(function () {
     Route::get('/registro/planos', [UsuarioController::class, 'planos'])->name('usuario.registro.planos');
     Route::post('/registro/auth', [UsuarioController::class, 'login'])->name('usuario.login');
     Route::post("/registro/criarusuario", [UsuarioController::class, 'criarUsuario'])->name('usuario.criarusuario');
+    Route::get("/registro/confirmacao", [UsuarioController::class, 'confirmacao'])->name('usuario.confirmacao');
     Route::post("/usuario/atualizarsenha", [UsuarioController::class, 'atualizarSenha'])->name('usuario.atualizarsenha');
 });
 
@@ -34,10 +36,17 @@ Route::get('/home', function () {
     return redirect()->route('login');
 })->name('home');
 
+
 Route::post('/stripe/webhook', [\App\Http\Controllers\WebHookController::class, 'handleWebhook']);
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
+Route::prefix('/meuperfil')->middleware('auth')->group(function () {
+    Route::get('/', [MeuperfilController::class, 'index'])->name('meuperfil');
+    Route::get('/planos', [MeuperfilController::class, 'meuplano'])->name('meuperfil.planos');
+    Route::post('/mudarplano', [MeuperfilController::class, 'trocarPlano'])->name('meuperfil.trocarPlano');
+
 });
 
 Route::prefix('/leads')->middleware('auth')->group(function () {
@@ -57,7 +66,6 @@ Route::get('/clear', function () {
 
 Route::prefix('/empresas')->middleware('auth')->group(function () {
    Route::get('/', [EmpresasController::class, 'index'])->name('empresas');
-   Route::post('/criarempresa', [EmpresasController::class, 'criarEmpresa'])->name('empresas.criarempresa');
    Route::post('/criarempresa', [EmpresasController::class, 'criarEmpresa'])->name('empresas.criarempresa');
 });
 

@@ -31,7 +31,7 @@
             <a href="{{ route('dashboard') }}" class="hover:text-black transition">Home</a>
             <a href="{{ route('leads') }}" class="hover:text-black transition">Leads</a>
             <a href="#" class="hover:text-black transition">Sobre</a>
-            <a href="#" class="hover:text-black transition">Docs</a>
+            <a href="{{ route('meuperfil') }}" class="hover:text-black transition">Meu perfil</a>
         </nav>
 
         <!-- Actions -->
@@ -55,10 +55,10 @@
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden border-t border-gray-200 px-6 pb-6 pt-4 space-y-4 bg-white">
 
-        <a href="/" class="block text-gray-700 hover:text-black">Home</a>
-        <a href="#" class="block text-gray-700 hover:text-black">Features</a>
-        <a href="#" class="block text-gray-700 hover:text-black">Pricing</a>
-        <a href="#" class="block text-gray-700 hover:text-black">Docs</a>
+        <a href="{{ route('dashboard') }}" class="hover:text-black transition">Home</a>
+        <a href="{{ route('leads') }}" class="hover:text-black transition">Leads</a>
+        <a href="#" class="hover:text-black transition">Sobre</a>
+        <a href="#" class="hover:text-black transition">Meu perfil</a>
 
         <div class="pt-4 flex flex-col gap-2">
             <a href="/login" class="text-gray-700 hover:text-black">Login</a>

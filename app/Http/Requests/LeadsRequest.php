@@ -26,6 +26,9 @@ class LeadsRequest extends FormRequest
             'leads_email' => 'required',
             'leads_whatsapp' => 'required',
             'leads_cpf' => 'required',
+            'leads_prox_acao',
+            'leads_prox_acao_data',
+            'leads_prox_acao_hora',
         ];
     }
 }

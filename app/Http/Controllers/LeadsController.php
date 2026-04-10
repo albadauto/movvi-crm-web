@@ -25,18 +25,19 @@ class LeadsController extends Controller
     }
 
     public function cadastrarLead(LeadsRequest $request){
+        $leads = $this->service->buscaLeadsByIdEmpresa(session()->get('empresa_id'));
+        $limiteLeads = $this->service->buscaLimiteLeads();
+        if(count($leads) >= $limiteLeads && $limiteLeads != 0){
+            return redirect()->route('leads')->with('error_leads', 'Erro: Limite de leads cadastrados atingido.
+             Para cadastrar mais leads, selecione um plano superior ao atual.');
+        }
         $this->service->cadastrarLeads($request);
         return redirect()->route('leads');
     }
 
     public function mover(Request $request)
     {
-        $lead = Leads::where('leads_id', $request->leadId)->first();
-        if($lead){
-
-            $lead->leads_acoes_id = $request->acaoId;
-            $lead->save();
-        }
+        $this->service->atualizarCard($request);
         return response()->json([
             'success' => true
         ]);

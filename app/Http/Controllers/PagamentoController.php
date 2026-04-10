@@ -19,7 +19,7 @@ class PagamentoController extends Controller
         $this->pagamentoService->UpdateUsuarioPlanId($user->id, $plan_id);
         return $user->newSubscription('default', $price_id)->checkout(
             [
-                'success_url' => route('login'),
+                'success_url' => route('usuario.confirmacao'),
             ]);
     }
 }

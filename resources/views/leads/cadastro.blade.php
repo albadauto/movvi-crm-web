@@ -16,7 +16,6 @@
                         {{ $error }}
                     @endforeach
                 </div>
-
             @endif
 
             <form action="{{ route('leads.cadastrarlead') }}" method="POST" class="space-y-6">
